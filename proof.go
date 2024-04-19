@@ -331,6 +331,9 @@ func (proof Proof) VerifyLeafHashes(nth *NmtHasher, verifyCompleteness bool, nID
 			// if the leaf index falls within the proof range, pop and return a
 			// leaf
 			if proof.Start() <= start && start < proof.End() {
+				if len(leafHashes) == 0 {
+					return nil, fmt.Errorf("no leaf hashes left to pop")
+				}
 				leafHash := leafHashes[0]
 				// advance leafHashes
 				leafHashes = leafHashes[1:]
